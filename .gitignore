@@ -100,4 +100,6 @@ InitTestScene*.unity*
 
 .mov
 
-.DS_Store*.mov
+.DS_Store
+
+*.mov
