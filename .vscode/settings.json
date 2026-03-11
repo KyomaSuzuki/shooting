@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "shooting.sln"
+    "dotnet.defaultSolution": "shooting.slnx"
 }
