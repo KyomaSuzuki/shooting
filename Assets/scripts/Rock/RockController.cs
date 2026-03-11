@@ -13,11 +13,11 @@ public class RockController : MonoBehaviour {
 	
 	void Update () {
 		transform.Translate( 0, -fallSpeed, 0, Space.World);
-		//transform.Rotate(0, 0, rotSpeed );
-        //ゲームオーバー設定
-		/*if (transform.position.y < -5.5f) {
-			GameObject.Find ("Canvas").GetComponent<UIController> ().GameOver ();
-			Destroy (gameObject);
-		}*/
+		transform.Rotate(0, 0, rotSpeed);
+
+		// 画面外に出たら自動削除（メモリ節約）
+		if (transform.position.y < -7f) {
+			Destroy(gameObject);
+		}
 	}
 }
