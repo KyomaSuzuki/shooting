@@ -58,6 +58,7 @@ public class RocketController : MonoBehaviour
             effect = new GameObject("Explosion");
             effect.transform.position = transform.position;
             ParticleSystem ps = effect.AddComponent<ParticleSystem>();
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             var main = ps.main;
             main.duration = 1f;
             main.startLifetime = 0.5f;
@@ -69,6 +70,7 @@ public class RocketController : MonoBehaviour
             emission.SetBursts(new ParticleSystem.Burst[]{ new ParticleSystem.Burst(0f, 30) });
             var shape = ps.shape;
             shape.shapeType = ParticleSystemShapeType.Sphere;
+            ps.Play();
         }
         Destroy(effect, 1.0f);
 

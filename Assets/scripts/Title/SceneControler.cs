@@ -12,6 +12,7 @@ public class SceneController : MonoBehaviour
 
     void Start()
     {
+        Time.timeScale = 1f;
         Rocket = GameObject.Find("Rocket");
         if (Rocket != null)
         {
@@ -70,7 +71,6 @@ public class SceneController : MonoBehaviour
         {
             if (RocketTransform != null)
             {
-                Debug.Log("Rocket Position: " + RocketTransform.position.y);
                 if (RocketTransform.position.y > 4f)
                 {
                     SceneManager.LoadScene("GameScene");
