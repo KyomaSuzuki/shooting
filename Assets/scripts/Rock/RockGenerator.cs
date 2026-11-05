@@ -1,30 +1,19 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
 
-public class RockGenerator : MonoBehaviour {
-
-	public GameObject[] rockPrefabs;
-    //隕石生成の時間
-    float GenRockTime;
-
-	void Start () {
-
-        //スコアの取得
-        int score = GameObject.Find("Canvas").GetComponent<UIController>().score;
-        //スコアに応じて隕石生成の時間を変更
-        this.GenRockTime = 1.0f - 0.05f * score;
-
-        //生成する設定
-		InvokeRepeating ("GenRock", GenRockTime, 1);
-	}
-	
-    //生成する
-    void GenRock () {
-        //ランダムに隕石を生成
-        int index = Random.Range(0, rockPrefabs.Length);
-        GameObject rock = rockPrefabs[index];
-
-        Instantiate (rock, new Vector3 (-2.5f + 5 * Random.value, 6, 0), Quaternion.identity);
-    
+public class RockGenerator : MonoBehaviour
+{
+    public GameObject[] rockPrefabs;
+    private UIController ui;
+    IEnumerator Start()
+    {
+        ui = FindFirstObjectByType<UIController>();
+        while (true)
+        {
+            yield return new WaitForSeconds(Mathf.Clamp(1f - (ui == null ? 0 : ui.score) * 0.0005f, 0.5f, 1f));
+            if (ui != null && ui.IsRunFinished) yield break;
+            if (rockPrefabs != null && rockPrefabs.Length > 0)
+                Instantiate(rockPrefabs[Random.Range(0, rockPrefabs.Length)], new Vector3(Random.Range(-2.5f, 2.5f), 6f, 0f), Quaternion.identity);
+        }
     }
 }

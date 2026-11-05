@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.86, y: -4.02, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.12, y: 0.12, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -79,8 +79,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9158349384845336690, guid: d595b359559364a8e8f25aba0f94c006, type: 3}
-  m_Color: {r: 0.038848326, g: 0.4929605, b: 0.9150943, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 07ddc10467ae43f6be421541cc069bb9, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -103,8 +103,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 2141552277647471359, guid: a148347e2c5b240d29a4c032933f8a3b, type: 3}
-  explosionPrefab: {fileID: 100000, guid: 4c5a17ca1f9fec84e941441ebb8be079, type: 3}
-  rocketTransform: {fileID: 8725526022675697563, guid: adb0bdf92645a4425bffbbc7f28d428b, type: 3}
+  explosionPrefab: {fileID: 0}
+  rocketTransform: {fileID: 0}
 --- !u!58 &8074438564982629737
 CircleCollider2D:
   m_ObjectHideFlags: 0

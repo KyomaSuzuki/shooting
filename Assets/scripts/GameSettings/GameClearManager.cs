@@ -1,84 +1,30 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.SocialPlatforms.Impl;
+using UnityEngine.SceneManagement;
 
 public class GameClearManager : MonoBehaviour
 {
     public GameObject gameClearScreen;
     public GameObject firstSelectedButton;
-    private bool isGameClear = false;
-    private int score;
-
-    void Start()
-    {
-        score = GetComponent<UIController>().score;
-    }
-
-    void Update()
-    {
-        if (isGameClear)
-        {
-            return;
-        }
-
-        // ゲームクリアの条件をチェックするロジックをここに追加
-        // スコアが1000を超えたらゲームクリア
-        if (score >= 1000 && !this.IsGameClear())
-        {
-            TriggerGameClear();
-        }
-
-    }
-
+    private bool isGameClear;
     public void TriggerGameClear()
     {
-        if (!isGameClear)
-        {
-            StartCoroutine(GameClearRoutine());
-        }
+        var over = FindFirstObjectByType<GameOverManager>();
+        if (isGameClear || (over != null && over.IsGameOver())) return;
+        isGameClear = true;
+        var rocket = FindFirstObjectByType<RocketController>();
+        if (rocket != null) rocket.FinishRun();
+        StartCoroutine(GameClearRoutine());
     }
-
     private IEnumerator GameClearRoutine()
     {
-        isGameClear = true;
-        //Rocketが隕石と衝突してもゲームオーバーにならない
-        RocketController rocketController = GameObject.Find("Rocket").GetComponent<RocketController>();
-        rocketController.enabled = false;
-        
-
-        // 3秒待つ
-        yield return new WaitForSeconds(1f);
-
-        // 画面の動きを停止する
+        yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 0f;
-
-        // ゲームクリア画面を表示する
-        gameClearScreen.SetActive(true);
-
-        // 最初のボタンを選択
-        EventSystem.current.SetSelectedGameObject(firstSelectedButton);
+        if (gameClearScreen != null) gameClearScreen.SetActive(true);
+        if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(firstSelectedButton);
     }
-
-    public void RestartGame()
-    {
-        // 画面の動きを再開する
-        Time.timeScale = 1f;
-
-        // 現在のシーンをリロードする
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    //TitleSceneに戻る 
-    public void LoadTitleScene()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("TitleScene");
-    }
-
-    public bool IsGameClear()
-    {
-        return isGameClear;
-    }
+    public void RestartGame() { Time.timeScale = 1f; SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
+    public void LoadTitleScene() { Time.timeScale = 1f; SceneManager.LoadScene("TitleScene"); }
+    public bool IsGameClear() { return isGameClear; }
 }

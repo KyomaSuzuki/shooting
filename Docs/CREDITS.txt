@@ -1,0 +1,15 @@
+Space Shooter — Credits
+
+Development: KyomaSuzuki
+Engine: Unity 6000.3.10f1
+
+Audio: OtoLogic (CC BY 4.0)
+https://otologic.jp/
+https://otologic.jp/free/license.html
+https://creativecommons.org/licenses/by/4.0/
+
+Graphics: AI-generated assets using OpenAI and/or Gemini, according to the developer's asset provenance statement.
+The rocket and green/red collectible backgrounds were removed using OpenAI image generation for version 0.1.0. The yellow power-up icon was generated for this version.
+Original images are retained in the source project; the transparent derivative is used in this build.
+
+This notice identifies the included assets. It does not grant a license to redistribute individual third-party assets separately.

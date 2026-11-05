@@ -1,74 +1,28 @@
-using UnityEngine;
-using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 
 public class GameOverManager : MonoBehaviour
 {
     public GameObject gameOverScreen;
     public GameObject firstSelectedButton;
-    private bool isGameOver = false;
-
-    void Update()
-    {
-        if (isGameOver)
-        {
-            return;
-        }
-    }
-
+    private bool isGameOver;
     public void TriggerGameOver()
     {
-        if (!isGameOver)
-        {
-            StartCoroutine(GameOverRoutine());
-        }
+        var clear = FindFirstObjectByType<GameClearManager>();
+        if (isGameOver || (clear != null && clear.IsGameClear())) return;
+        isGameOver = true;
+        StartCoroutine(GameOverRoutine());
     }
-
     private IEnumerator GameOverRoutine()
     {
-        isGameOver = true;
-
-        // 3秒待つ
-        yield return new WaitForSeconds(3f);
-
-        // 画面の動きを停止する
+        yield return new WaitForSecondsRealtime(1f);
         Time.timeScale = 0f;
-
-        // ゲームオーバー画面を表示する
-        gameOverScreen.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(firstSelectedButton);
+        if (gameOverScreen != null) gameOverScreen.SetActive(true);
+        if (EventSystem.current != null) EventSystem.current.SetSelectedGameObject(firstSelectedButton);
     }
-
-    public void RestartGame()
-    {
-        // 画面の動きを再開する
-        Time.timeScale = 1f;
-
-        // 現在のシーンをリロードする
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    /*public void QuitGame()
-    {
-        // ゲームを終了する
-        Application.Quit();
-
-        // Unityエディタでは、実行停止（デバッグ用）
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#endif
-    }*/
-    //TitleSceneに戻る 
-    public void LoadTitleScene()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene("TitleScene");
-    }
-
-    public bool IsGameOver()
-    {
-        return isGameOver;
-    }
+    public void RestartGame() { Time.timeScale = 1f; SceneManager.LoadScene(SceneManager.GetActiveScene().name); }
+    public void LoadTitleScene() { Time.timeScale = 1f; SceneManager.LoadScene("TitleScene"); }
+    public bool IsGameOver() { return isGameOver; }
 }
