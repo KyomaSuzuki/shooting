@@ -13,6 +13,11 @@ public class SceneController : MonoBehaviour
     void Start()
     {
         Time.timeScale = 1f;
+        // ManualScene only needs navigation; it has no launch rocket or audio pair.
+        if (SceneManager.GetActiveScene().name != "TitleScene")
+        {
+            return;
+        }
         Rocket = GameObject.Find("Rocket");
         if (Rocket != null)
         {
@@ -104,10 +109,6 @@ public class SceneController : MonoBehaviour
         if (BottonSounds != null)
         {
             BottonSounds.PlayOneShot(BottonSounds.clip);
-        }
-        else
-        {
-            Debug.LogError("BottonSounds is not set!");
         }
         SceneManager.LoadScene("TitleScene");
     }
